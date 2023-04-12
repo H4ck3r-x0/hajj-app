@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Inertia\Inertia;
 use App\Models\Campaign;
 use App\Imports\CampaignImport;
 use Maatwebsite\Excel\Facades\Excel;
@@ -15,9 +16,9 @@ class CampaignController extends Controller
      */
     public function index()
     {
-        Excel::import(new CampaignImport, 'Campaign.xlsx');
-
-        // return redirect('/')->with('success', 'All good!');
+        return Inertia::render('Campaign/Index', [
+            'campaigns' => Campaign::latest()->paginate(10),
+        ]);
     }
 
     /**
@@ -33,7 +34,9 @@ class CampaignController extends Controller
      */
     public function store(StoreCampaignRequest $request)
     {
-        //
+        Excel::import(new CampaignImport, 'Campaign.xlsx');
+
+        // return redirect('/')->with('success', 'All good!');
     }
 
     /**

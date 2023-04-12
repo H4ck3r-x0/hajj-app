@@ -13,7 +13,8 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-Route::get('import', [CampaignController::class, 'index']);
+Route::get('import', [CampaignController::class, 'store']);
+Route::get('compaigns', [CampaignController::class, 'index']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

@@ -12,7 +12,6 @@ class Campaign extends Model
 
     protected $fillable = ['name', 'main_mobile', 'emergency_mobile', 'location_google_url', 'active'];
 
-
     public function hajDatas(): HasMany
     {
         return $this->hasMany(HajData::class);
