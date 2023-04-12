@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Campaign;
+use App\Imports\CampaignImport;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\StoreCampaignRequest;
 use App\Http\Requests\UpdateCampaignRequest;
-use App\Models\Campaign;
 
 class CampaignController extends Controller
 {
@@ -13,7 +15,9 @@ class CampaignController extends Controller
      */
     public function index()
     {
-        //
+        Excel::import(new CampaignImport, 'Campaign.xlsx');
+
+        // return redirect('/')->with('success', 'All good!');
     }
 
     /**

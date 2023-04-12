@@ -10,4 +10,9 @@ class HajData extends Model
     use HasFactory;
 
     protected $fillable = ['first_name', 'last_name', 'campaign_id'];
+
+    public function campaign(): bleongsTo
+    {
+        return $this->belongsTo(Campaign::class);
+    }
 }
