@@ -17,7 +17,7 @@ class CampaignController extends Controller
     public function index()
     {
         return Inertia::render('Campaign/Index', [
-            'campaigns' => Campaign::latest()->paginate(10),
+            'campaigns' => Campaign::paginate(50),
         ]);
     }
 
@@ -34,7 +34,8 @@ class CampaignController extends Controller
      */
     public function store(StoreCampaignRequest $request)
     {
-        Excel::import(new CampaignImport, 'Campaign.xlsx');
+
+        Excel::queueImport(new CampaignImport, 'Campaign.xlsx');
 
         // return redirect('/')->with('success', 'All good!');
     }

@@ -1,7 +1,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
 import Pagination from '@/Components/Pagination';
-
+import SVG from 'react-inlinesvg';
 export default function Index({ auth, campaigns }) {
     return (
         <AuthenticatedLayout
@@ -18,6 +18,9 @@ export default function Index({ auth, campaigns }) {
                                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                     <tr>
                                         <th scope="col" className="px-6 py-3">
+                                            #id
+                                        </th>
+                                        <th scope="col" className="px-6 py-3">
                                             اسم الحملة
                                         </th>
                                         <th scope="col" className="px-6 py-3">
@@ -29,12 +32,18 @@ export default function Index({ auth, campaigns }) {
                                         <th scope="col" className="px-6 py-3">
                                             العنوان
                                         </th>
+                                        <th scope="col" className="px-6 py-3">
+                                            البار كود
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {campaigns.data.map((campaign, index) => {
                                         return (
                                             <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700" key={campaign.id}>
+                                                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                    {campaign.id}
+                                                </th>
                                                 <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                     {campaign.name}
                                                 </th>
@@ -46,6 +55,14 @@ export default function Index({ auth, campaigns }) {
                                                 </td>
                                                 <td className="px-6 py-4">
                                                     {campaign.location_google_url}
+                                                </td>
+                                                <td className="px-6 py-4">
+                                                    <SVG
+                                                        src={campaign.qr_code}
+                                                        width={128}
+                                                        height="auto"
+                                                        title="React"
+                                                    />
                                                 </td>
                                             </tr>
                                         )

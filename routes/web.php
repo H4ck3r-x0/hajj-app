@@ -13,6 +13,9 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth'])->name('dashboard');
 
+Route::get('showDetials/{id}', function () {
+    return auth()->user();
+})->name('showDetials');
 Route::get('import', [CampaignController::class, 'store']);
 Route::get('compaigns', [CampaignController::class, 'index']);
 
