@@ -8,6 +8,7 @@ use App\Imports\CampaignImport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\StoreCampaignRequest;
 use App\Http\Requests\UpdateCampaignRequest;
+use Illuminate\Http\Request;
 
 class CampaignController extends Controller
 {
@@ -22,20 +23,17 @@ class CampaignController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreCampaignRequest $request)
+    public function store(Request $request)
     {
+        $request->validate([
+            'file' => ['required', 'mimes:xlsx'],
+        ]);
 
-        Excel::queueImport(new CampaignImport, 'Campaign.xlsx');
+        if ($request->hasFile('file')) {
+            Excel::queueImport(new CampaignImport, $request->file);
+        }
 
         // return redirect('/')->with('success', 'All good!');
     }
@@ -45,7 +43,9 @@ class CampaignController extends Controller
      */
     public function show(Campaign $campaign)
     {
-        //
+        return Inertia::render('Campaign/Show', [
+            'campaign' => $campaign,
+        ]);
     }
 
     /**

@@ -1,8 +1,22 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head } from '@inertiajs/react';
+import { Head, Link, useForm } from '@inertiajs/react';
 import Pagination from '@/Components/Pagination';
 import SVG from 'react-inlinesvg';
+import PrimaryButton from '@/Components/PrimaryButton';
+import InputError from '@/Components/InputError';
+
 export default function Index({ auth, campaigns }) {
+    const { data, setData, post, errors, processing, recentlySuccessful } = useForm({
+        file: null
+    });
+    const submit = (e) => {
+        e.preventDefault();
+
+        post(route('compaigns.store'), data, {
+            forceFormData: true,
+        });
+    };
+
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -10,12 +24,24 @@ export default function Index({ auth, campaigns }) {
         >
             <Head title="الحملات" />
 
-            <div className="py-12">
+            <div className="py-6">
+                <div className='max-w-6xl mb-4 mx-auto sm:px-6 lg:px-8 py-2 bg-white rounded-sm shadow-sm'>
+                    <form onSubmit={submit} className="mt-6 space-y-6">
+                        <div className='flex flex-col mb-2'>
+                            <label htmlFor="file">أختر ملف الحملة</label>
+                            <input type="file" id='file' name='file' onChange={(e) => setData('file', e.target.files[0])} />
+                        </div>
+                        <PrimaryButton disabled={processing}>رفع</PrimaryButton>
+                        <InputError className="mt-2" message={errors.file} />
+                    </form>
+
+                </div>
+
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="relative overflow-x-auto">
-                            <table className="w-full text-sm text-right text-gray-500 dark:text-gray-400" dir='rtl'>
-                                <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                            <table className="w-full text-sm text-right text-gray-500 " dir='rtl'>
+                                <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 ">
                                     <tr>
                                         <th scope="col" className="px-6 py-3">
                                             #id
@@ -34,6 +60,9 @@ export default function Index({ auth, campaigns }) {
                                         </th>
                                         <th scope="col" className="px-6 py-3">
                                             البار كود
+                                        </th>
+                                        <th scope="col" className="px-6 py-3">
+                                            الخيارات
                                         </th>
                                     </tr>
                                 </thead>
@@ -63,6 +92,11 @@ export default function Index({ auth, campaigns }) {
                                                         height="auto"
                                                         title="React"
                                                     />
+                                                </td>
+                                                <td className="px-6 py-4">
+                                                    <Link href={route('showDetails', campaign.id)}>
+                                                        استعراض الحملة
+                                                    </Link>
                                                 </td>
                                             </tr>
                                         )

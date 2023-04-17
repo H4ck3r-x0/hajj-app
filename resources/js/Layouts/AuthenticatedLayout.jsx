@@ -20,9 +20,12 @@ export default function Authenticated({ user, header, children }) {
                                 </Link>
                             </div>
 
-                            <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                            <div className="hidden space-x-8 gap-3 sm:-my-px sm:ml-10 sm:flex">
                                 <NavLink href={route('dashboard')} active={route().current('dashboard')}>
                                     الصفحة الرئيسية
+                                </NavLink>
+                                <NavLink href={route('compaigns.index')} active={route().current('compaigns.index')}>
+                                    الحملات
                                 </NavLink>
                             </div>
                         </div>

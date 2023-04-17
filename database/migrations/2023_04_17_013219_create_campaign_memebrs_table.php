@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('haj_data', function (Blueprint $table) {
+        Schema::create('campaign_memebrs', function (Blueprint $table) {
             $table->id();
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('haj_data');
+        Schema::dropIfExists('campaign_memebrs');
     }
 };

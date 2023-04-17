@@ -11,13 +11,14 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithBatchInserts;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
 
-class CampaignImport implements ToCollection, WithHeadingRow, WithBatchInserts, WithChunkReading, ShouldQueue
+class CampaignImport implements
+    ToCollection,
+    WithHeadingRow,
+    WithBatchInserts,
+    WithChunkReading,
+    ShouldQueue
 {
-    /**
-     * @param array $row
-     *
-     * @return \Illuminate\Database\Eloquent\Model|null
-     */
+
     public function collection(Collection $rows)
     {
         foreach ($rows as $row) {
