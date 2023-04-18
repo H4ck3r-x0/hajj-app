@@ -6,7 +6,6 @@ use Inertia\Inertia;
 use App\Models\Campaign;
 use App\Imports\CampaignImport;
 use Maatwebsite\Excel\Facades\Excel;
-use App\Http\Requests\StoreCampaignRequest;
 use App\Http\Requests\UpdateCampaignRequest;
 use Illuminate\Http\Request;
 
@@ -38,15 +37,6 @@ class CampaignController extends Controller
         // return redirect('/')->with('success', 'All good!');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Campaign $campaign)
-    {
-        return Inertia::render('Campaign/Show', [
-            'campaign' => $campaign,
-        ]);
-    }
 
     /**
      * Show the form for editing the specified resource.

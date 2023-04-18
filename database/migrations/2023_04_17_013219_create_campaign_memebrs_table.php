@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
-
+            $table->string('nationality')->nullable();
+            $table->text('qr_code')->nullable();
             $table->foreignId('campaign_id')
                 ->constrained()
                 ->onDelete('cascade');

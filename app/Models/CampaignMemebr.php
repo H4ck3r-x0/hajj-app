@@ -10,7 +10,7 @@ class CampaignMemebr extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['first_name', 'last_name', 'campaign_id'];
+    protected $fillable = ['first_name', 'last_name', 'nationality', 'qr_code', 'campaign_id'];
 
     public function campaign(): BelongsTo
     {

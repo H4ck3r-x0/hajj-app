@@ -3,12 +3,13 @@
 namespace App\Imports;
 
 use App\Models\CampaignMemebr;
+use Illuminate\Support\Collection;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithBatchInserts;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
-use Illuminate\Support\Collection;
 
 class CampaignMemebrImport implements
     ToCollection,
@@ -17,6 +18,14 @@ class CampaignMemebrImport implements
     WithChunkReading,
     ShouldQueue
 {
+
+    public $campaign;
+
+    public function  __construct($campaign)
+    {
+        $this->campaign = $campaign;
+    }
+
     /**
      * @param array $row
      *
@@ -24,9 +33,19 @@ class CampaignMemebrImport implements
      */
     public function collection(Collection $rows)
     {
-        return new CampaignMemebr([
-            //
-        ]);
+        foreach ($rows as $row) {
+            $campaignMember = CampaignMemebr::create([
+                'first_name' => $row['الاسم الاول'],
+                'last_name' => $row['الاسم الثاني'],
+                'nationality' => $row['الجنسية'],
+                'campaign_id' => $this->campaign->id
+            ]);
+
+            $campaignMember->qr_code = QrCode::format('svg')
+                ->generate(route('campaign.member.showDetails', $campaignMember->id));
+
+            $campaignMember->save();
+        }
     }
 
     public function batchSize(): int

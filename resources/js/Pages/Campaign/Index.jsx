@@ -50,6 +50,9 @@ export default function Index({ auth, campaigns }) {
                                             اسم الحملة
                                         </th>
                                         <th scope="col" className="px-6 py-3">
+                                            رقم الحملة
+                                        </th>
+                                        <th scope="col" className="px-6 py-3">
                                             هاتف الحملة الرئيسي
                                         </th>
                                         <th scope="col" className="px-6 py-3">
@@ -70,11 +73,14 @@ export default function Index({ auth, campaigns }) {
                                     {campaigns.data.map((campaign, index) => {
                                         return (
                                             <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700" key={campaign.id}>
-                                                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                <th scope="row" className="px-6 py-4 font-medium  whitespace-nowrap ">
                                                     {campaign.id}
                                                 </th>
-                                                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                <th scope="row" className="px-6 py-4 font-medium  whitespace-nowrap ">
                                                     {campaign.name}
+                                                </th>
+                                                <th scope="row" className="px-6 py-4 font-medium  whitespace-nowrap ">
+                                                    {campaign.campaign_number}
                                                 </th>
                                                 <td className="px-6 py-4">
                                                     {campaign.main_mobile}
@@ -94,7 +100,7 @@ export default function Index({ auth, campaigns }) {
                                                     />
                                                 </td>
                                                 <td className="px-6 py-4">
-                                                    <Link href={route('showDetails', campaign.id)}>
+                                                    <Link href={route('campaign.show', campaign.id)}>
                                                         استعراض الحملة
                                                     </Link>
                                                 </td>
@@ -103,9 +109,9 @@ export default function Index({ auth, campaigns }) {
                                     })}
                                 </tbody>
                             </table>
-                            <Pagination class="mt-6" campaigns={campaigns.links} />
                         </div>
                     </div>
+                    <Pagination class="mt-6" campaigns={campaigns.links} />
                 </div>
             </div>
         </AuthenticatedLayout>

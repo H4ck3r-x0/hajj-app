@@ -1,10 +1,11 @@
 <?php
 
-use App\Http\Controllers\CampaignController;
-use App\Http\Controllers\ProfileController;
+use Inertia\Inertia;
 use App\Models\Campaign;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CampaignController;
+use App\Http\Controllers\CampaignMemebrController;
 
 Route::get('/', function () {
     return redirect('login');
@@ -14,7 +15,15 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-Route::get('showDetials/{campaign}', [CampaignController::class, 'show'])->name('showDetails');
+Route::get('campaign/show/{campaign}', [CampaignMemebrController::class, 'show'])
+    ->name('campaign.show');
+
+Route::post('campaign/show/{campaign}', [CampaignMemebrController::class, 'store'])
+    ->name('campaign.member.store');
+
+Route::get('campaign/member/{campaignMemebr}', [CampaignMemebrController::class, 'showDetails'])
+    ->name('campaign.member.showDetails');
+
 
 Route::post('import/campaigns', [CampaignController::class, 'store'])
     ->name('compaigns.store');

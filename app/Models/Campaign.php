@@ -17,7 +17,7 @@ class Campaign extends Model
         'emergency_mobile',
         'location_google_url',
         'qr_code',
-        'active'
+        'campaign_number',
     ];
 
     public function members(): HasMany

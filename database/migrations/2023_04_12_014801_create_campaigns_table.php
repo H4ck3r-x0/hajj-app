@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name')->nullable();
             $table->string('manager_name')->nullable();
+            $table->string('campaign_number')->nullable();
             $table->string('main_mobile')->nullable();
             $table->string('emergency_mobile')->nullable();
             $table->text('location_google_url')->nullable();

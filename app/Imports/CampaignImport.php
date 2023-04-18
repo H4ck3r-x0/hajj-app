@@ -24,12 +24,15 @@ class CampaignImport implements
         foreach ($rows as $row) {
             $campaign = Campaign::create([
                 'name' => $row['اسم الحملة'],
+                'manager_name' => $row['اسم المسؤول'],
                 'main_mobile' => $row['الرقم الرئيسي'],
                 'emergency_mobile' => $row['رقم الطوارئ'],
-                'location_google_url' => $row['العنوان']
+                'location_google_url' => $row['العنوان'],
+                'campaign_number' => $row['رقم الحملة']
             ]);
 
-            $campaign->qr_code = QrCode::format('svg')->generate(route('showDetials', $campaign->id));
+            $campaign->qr_code = QrCode::format('svg')
+                ->generate(route('campaign.show', $campaign->id));
             $campaign->save();
         }
     }
